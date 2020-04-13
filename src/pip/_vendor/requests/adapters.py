@@ -8,7 +8,7 @@ This module contains the transport adapters that Requests uses to define
 and maintain connections.
 """
 
-import os.path
+import os
 import socket
 
 from pip._vendor.urllib3.poolmanager import PoolManager, proxy_from_url
@@ -219,6 +219,11 @@ class HTTPAdapter(BaseAdapter):
             # Allow self-specified cert location.
             if verify is not True:
                 cert_loc = verify
+
+            if os.getenv('REQUESTS_NO_DEFAULT_CA_BUNDLE') is not None:
+                conn.ca_certs = None
+                conn.ca_cert_dir = None
+                return
 
             if not cert_loc:
                 cert_loc = extract_zipped_paths(DEFAULT_CA_BUNDLE_PATH)
