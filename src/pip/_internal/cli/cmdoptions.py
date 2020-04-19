@@ -915,6 +915,16 @@ no_python_version_warning = partial(
 )  # type: Callable[..., Option]
 
 
+win_sso = partial(
+    Option,
+    '--win-sso',
+    dest='win_sso',
+    action='store_true',
+    default=False,
+    help='Similar to the -UseDefaultCredentials parameter '
+         'of the Invoke-WebRequest cmdlet in PowerSheell.')
+
+
 ##########
 # groups #
 ##########
@@ -943,6 +953,7 @@ general_group = {
         disable_pip_version_check,
         no_color,
         no_python_version_warning,
+        win_sso,
     ]
 }  # type: Dict[str, Any]
 
