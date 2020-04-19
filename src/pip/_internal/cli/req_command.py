@@ -120,6 +120,10 @@ class SessionCommandMixin(CommandContextMixIn):
                 "https": options.proxy,
             }
 
+        if options.win_sso:
+            from requests_negotiate_sspi import HttpNegotiateAuth
+            session.auth = HttpNegotiateAuth()
+
         # Determine if we can prompt the user for authentication or not
         session.auth.prompting = not options.no_input
 
